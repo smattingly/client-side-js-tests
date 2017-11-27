@@ -1,0 +1,125 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Test Results</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css" rel="stylesheet" />
+  <style>
+    #mocha .test .error {
+      height: 55px; /* show only first line of stack dump */
+    }
+    
+    #mocha-stats { position: static; }
+    
+    body { margin: 2% 5% 2% 5%; }
+  </style>
+</head>
+
+<body>
+  <div>
+    <!-- Set up to copy test results to clipboard in markdown format. -->
+    <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.7.1/dist/clipboard.min.js"></script>
+    <script src="https://cdn.rawgit.com/domchristie/to-markdown/eb389e24/dist/to-markdown.js"></script>
+ 
+    <div id="copySuccess" class="w3-panel w3-green w3-card-4" style="display: none;">
+      <p><big>Success.</big></p>
+      <p>A summary of these results was copied to the clipboard. <em>Now paste into</em> <code>testResults.md</code> to submit via GitHub.</p>
+    </div>
+    <div id="copyFail" class="w3-panel w3-yellow w3-card-4" style="display: none;">
+      <p><big>Attention!</big></p>
+      <p>Your browser does not support auto copy. Press <code>Ctrl-C</code> or <code>Cmd-C</code> to copy a summary of results, then paste into <code>testResults.md</code> to submit via GitHub.</p>
+    </div>
+    <textarea id="markdown" style="position:absolute; top:0; left:-500px;" rows="1" cols="2"></textarea>
+    <span id="copyButton" class="copyButton fa fa-clipboard fa-lg" onclick="generateMarkdownSummary();" data-clipboard-target="#markdown"></span>
+  </div>
+
+  <script src="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js"></script>
+  <script src="https://cdn.rawgit.com/shouldjs/should.js/cc2f68b3/should.js"></script>
+  <script>
+    mocha.setup({ ui: 'bdd', bail: true });
+  </script>
+  
+  <!-- External script(s) containing the code under test. -->
+  <script src="./Example.js"></script>
+
+  <!-- External script(s) containing the test code. -->
+  <script src="./test/Example.js"></script>
+
+  <!-- Display area for test results. -->
+  <div id="mocha"></div>
+
+  <script>
+    mocha.checkLeaks();
+    mocha.run();
+
+    function generateMarkdownSummary() {
+      let dropClassesConverter = {
+        filter: function(node) {
+          return /duration/i.test(node.className) ||
+            /replay/i.test(node.className) ||
+            /progress/i.test(node.className) ||
+            /error/i.test(node.className);
+        },
+        replacement: function(content) {
+          return '';
+        }
+      };
+
+      let spanConverter = {
+        filter: 'span',
+        replacement: function(content) {
+          return ' ' + content;
+        }
+      };
+
+      let noFormatConverter = {
+        filter: ['a', 'em', 'h1', 'h2', 'h3'],
+        replacement: function(content) {
+          return content;
+        }
+      };
+
+      let dropsConverter = {
+        filter: ['code'],
+        replacement: function(content) {
+          return '';
+        }
+      };
+
+      let passConverter = {
+        filter: function(node) {
+          return node.nodeName === 'LI' && /pass/i.test(node.className);
+        },
+        replacement: function(content) {
+          return '\n&#10003; ' + content;
+        }
+      };
+
+      let failConverter = {
+        filter: function(node) {
+          return node.nodeName === 'LI' && /fail/i.test(node.className);
+        },
+        replacement: function(content) {
+          return '\n&#935; ' + content;
+        }
+      }
+
+      document.getElementById("markdown").value = toMarkdown(document.getElementById('mocha').innerHTML, { converters: [passConverter, failConverter, dropClassesConverter, spanConverter, dropsConverter, noFormatConverter], gfm: true });
+    }
+  </script>
+  <script>
+    let clipboard = new Clipboard('.copyButton');
+    clipboard.on('success', function(e) {
+      document.getElementById("copySuccess").style.display = 'block';
+      document.getElementById("copyButton").style.display = 'none';
+    });
+    clipboard.on('error', function(e) {
+      document.getElementById("copyFail").style.display = 'block';
+      document.getElementById("copyButton").style.display = 'none';
+    });
+  </script>
+</body>
+
+</html>
