@@ -11,10 +11,14 @@
     #mocha .test .error {
       height: 55px; /* show only first line of stack dump */
     }
-    
-    #mocha-stats { position: static; }
-    
-    body { margin: 2% 5% 2% 5%; }
+
+    #mocha-stats {
+      position: static;
+    }
+
+    body {
+      margin: 2% 5% 2% 5%;
+    }
   </style>
 </head>
 
@@ -23,7 +27,7 @@
     <!-- Set up to copy test results to clipboard in markdown format. -->
     <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.7.1/dist/clipboard.min.js"></script>
     <script src="https://cdn.rawgit.com/domchristie/to-markdown/eb389e24/dist/to-markdown.js"></script>
- 
+
     <div id="copySuccess" class="w3-panel w3-green w3-card-4" style="display: none;">
       <p><big>Success.</big></p>
       <p>A summary of these results was copied to the clipboard. <em>Now paste into</em> <code>testResults.md</code> to submit via GitHub.</p>
@@ -41,7 +45,7 @@
   <script>
     mocha.setup({ ui: 'bdd', bail: true });
   </script>
-  
+
   <!-- External script(s) containing the code under test. -->
   <script src="./Example.js"></script>
 
@@ -55,7 +59,7 @@
     mocha.checkLeaks();
     mocha.run();
 
-    function generateMarkdownSummary() {
+    function generateMarkdownSummary() { // eslint-disable-line no-unused-vars
       let dropClassesConverter = {
         filter: function(node) {
           return /duration/i.test(node.className) ||
@@ -105,13 +109,14 @@
         replacement: function(content) {
           return '\n&#935; ' + content;
         }
-      }
+      };
 
+      /* global toMarkdown */
       document.getElementById("markdown").value = toMarkdown(document.getElementById('mocha').innerHTML, { converters: [passConverter, failConverter, dropClassesConverter, spanConverter, dropsConverter, noFormatConverter], gfm: true });
     }
   </script>
   <script>
-    let clipboard = new Clipboard('.copyButton');
+    let clipboard = new Clipboard('.copyButton'); /* global Clipboard */
     clipboard.on('success', function(e) {
       document.getElementById("copySuccess").style.display = 'block';
       document.getElementById("copyButton").style.display = 'none';
