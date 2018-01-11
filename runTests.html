@@ -10,6 +10,11 @@
   <!-- Load your external script(s) containing the mocha tests. -->
   <script src="./test/Example.js"></script>
 
+  <!-- Feature toggle: use GitHub-flavored markdown? -->
+  <script>
+    var useGHFM = false; // eslint-disable-line no-unused-vars 
+  </script>
+  
   <title>Test Results</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -106,7 +111,8 @@
           return node.nodeName === 'LI' && /pending/i.test(node.className);
         },
         replacement: function(content) {
-          return '\n:grey_question: ' + content;
+          const marker = (useGHFM ? "\n:grey_question: " : "\n? ");  /* global useGHFM */
+          return marker + content;
         }
       };
 
@@ -115,7 +121,8 @@
           return node.nodeName === 'LI' && /pass/i.test(node.className);
         },
         replacement: function(content) {
-          return '\n:white_check_mark: ' + content;
+          const marker = (useGHFM ? "\n:white_check_mark: " : "\n&#10003; ");  /* global useGHFM */
+          return marker + content;
         }
       };
 
@@ -124,7 +131,8 @@
           return node.nodeName === 'LI' && /fail/i.test(node.className);
         },
         replacement: function(content) {
-          return '\n:x: ' + content;
+          const marker = (useGHFM ? "\n:x: " : "\n&#935; ");  /* global useGHFM */
+          return marker + content;
         }
       };
 
