@@ -12,22 +12,10 @@ Students submit a summary of their test results by clicking the `Copy` icon in t
 
 ## Setting up the assignment
 
-Before a given assignment repo is provided to students, the instructor must modify `runTests.html` as follows.
+Before a given assignment repo is provided to students, the instructor must create file system links to identify the scripts used in testing.
 
-Replace the example `<script>` tag below with tags for the `.js` files that should be tested.
-```
-  <!-- Load your external script(s) containing the code under test. -->
-  <script src="./Example.js"></script>
-```
-Replace the example `<script>` tag below with tags for the `.js` files that contain the `mocha` tests.
-```
-  <!-- Load your external script(s) containing the mocha tests. -->
-  <script src="./test/Example.js"></script>
-```
-Optionally, change the variable below. When set to true, the summary that is copied to the clipboard will use emojis to indicate test outcomes; this renders nicely on GitHub.com. When set to false, emojis are replaced with HTML entity symbols, which are less informative but more portable.
-```
-  <!-- Feature toggle: use GitHub-flavored markdown? -->
-  <script>
-    var useGHFM = true; // eslint-disable-line no-unused-vars 
-  </script>
-  ```
+The following commands should be executed in a `bash` terminal, in the root folder of the assignment repo. (This is one level up from the folder for this submodule.)
+
+For each script to be tested: `ln -s <someScriptToBeTested>.js undertest1.js`. Replace `1` with the next sequential number for each addition script. Note that this submodule will load them in numeric order; load order may matter if there are dependencies among your scripts.
+
+For each script containing `mocha` tests: `ln -s <someMochaScript>.js tests1.js`. Again, use sequential numbers for additional scripts.
