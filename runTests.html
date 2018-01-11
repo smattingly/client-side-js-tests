@@ -4,17 +4,6 @@
 <head>
   <meta charset="utf-8">
 
-  <!-- Load your external script(s) containing the code under test. -->
-  <script src="./Example.js"></script>
-
-  <!-- Load your external script(s) containing the mocha tests. -->
-  <script src="./test/Example.js"></script>
-
-  <!-- Feature toggle: use GitHub-flavored markdown? -->
-  <script>
-    var useGHFM = false; // eslint-disable-line no-unused-vars 
-  </script>
-  
   <title>Test Results</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -59,12 +48,17 @@
     mocha.setup({ ui: 'bdd', bail: true });
   </script>
 
-  <!-- External script(s) containing the code under test. -->
+  <!-- Load your external script(s) containing the code under test. -->
   <script src="./Example.js"></script>
 
-  <!-- External script(s) containing the test code. -->
+  <!-- Load your external script(s) containing the mocha tests. -->
   <script src="./test/Example.js"></script>
 
+  <!-- Feature toggle: use GitHub-flavored markdown? -->
+  <script>
+    var useGHFM = false; // eslint-disable-line no-unused-vars 
+  </script>
+  
   <!-- Display area for test results. -->
   <div id="mocha"></div>
 
