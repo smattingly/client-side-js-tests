@@ -19,7 +19,7 @@ Replace the example `<script>` tag below with tags for the `.js` files that shou
   <!-- Load your external script(s) containing the code under test. -->
   <script src="./Example.js"></script>
 ```
-Replace the example `<script>` tag below with tags for the `.js` files contain the `mocha` tests.
+Replace the example `<script>` tag below with tags for the `.js` files that contain the `mocha` tests.
 ```
   <!-- Load your external script(s) containing the mocha tests. -->
   <script src="./test/Example.js"></script>
