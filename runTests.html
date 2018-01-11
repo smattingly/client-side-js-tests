@@ -3,13 +3,21 @@
 
 <head>
   <meta charset="utf-8">
+
+  <!-- Load your external script(s) containing the code under test. -->
+  <script src="./Example.js"></script>
+
+  <!-- Load your external script(s) containing the mocha tests. -->
+  <script src="./test/Example.js"></script>
+
   <title>Test Results</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css" rel="stylesheet" />
   <style>
     #mocha .test .error {
-      height: 55px; /* show only first line of stack dump */
+      height: 55px;
+      /* show only first line of stack dump */
     }
 
     #mocha-stats {
@@ -93,12 +101,21 @@
         }
       };
 
+      let pendingConverter = {
+        filter: function(node) {
+          return node.nodeName === 'LI' && /pending/i.test(node.className);
+        },
+        replacement: function(content) {
+          return '\n:grey_question: ' + content;
+        }
+      };
+
       let passConverter = {
         filter: function(node) {
           return node.nodeName === 'LI' && /pass/i.test(node.className);
         },
         replacement: function(content) {
-          return '\n&#10003; ' + content;
+          return '\n:white_check_mark: ' + content;
         }
       };
 
@@ -107,12 +124,12 @@
           return node.nodeName === 'LI' && /fail/i.test(node.className);
         },
         replacement: function(content) {
-          return '\n&#935; ' + content;
+          return '\n:x: ' + content;
         }
       };
 
       /* global toMarkdown */
-      document.getElementById("markdown").value = toMarkdown(document.getElementById('mocha').innerHTML, { converters: [passConverter, failConverter, dropClassesConverter, spanConverter, dropsConverter, noFormatConverter], gfm: true });
+      document.getElementById("markdown").value = toMarkdown(document.getElementById('mocha').innerHTML, { converters: [pendingConverter, passConverter, failConverter, dropClassesConverter, spanConverter, dropsConverter, noFormatConverter], gfm: true });
     }
   </script>
   <script>
