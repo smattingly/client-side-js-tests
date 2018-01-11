@@ -48,12 +48,17 @@
     mocha.setup({ ui: 'bdd', bail: true });
   </script>
 
-  <!-- Load your external script(s) containing the code under test. -->
-  <script src="./Example.js"></script>
-
-  <!-- Load your external script(s) containing the mocha tests. -->
-  <script src="./test/Example.js"></script>
-
+  <script>
+    /* Q. How to keep this submodule generic, while "parameterizing" the main repo scripts to load?
+       A. Use symbolic links, though number needed cannot be known. Is there a better way?
+    */
+    console.log("Searching for links; load errors for 'undertestN.js' and 'testsN.js' can be safely ignored.");
+  </script>
+  <script src="undertest1.js"></script>
+  <script src="undertest2.js"></script>
+  <script src="tests1.js"></script>
+  <script src="tests2.js"></script>
+  
   <!-- Feature toggle: use GitHub-flavored markdown? -->
   <script>
     var useGHFM = false; // eslint-disable-line no-unused-vars 
