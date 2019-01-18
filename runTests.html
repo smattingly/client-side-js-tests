@@ -25,11 +25,12 @@
 </head>
 
 <body>
+  <!--
   <div>
-    <!-- Set up to copy test results to clipboard in markdown format. -->
+    <!-- Set up to copy test results to clipboard in markdown format. - - >
     <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.7.1/dist/clipboard.min.js"></script>
     <script src="https://cdn.rawgit.com/domchristie/to-markdown/eb389e24/dist/to-markdown.js"></script>
-
+  
     <div id="copySuccess" class="w3-panel w3-green w3-card-4" style="display: none;">
       <p><big>Success.</big></p>
       <p>A summary of these results was copied to the clipboard. <em>Now paste into</em> <code>testResults.md</code> to submit via GitHub.</p>
@@ -41,11 +42,12 @@
     <textarea id="markdown" style="position:absolute; top:0; left:-500px;" rows="1" cols="2"></textarea>
     <span id="copyButton" class="copyButton fa fa-clipboard fa-lg" onclick="generateMarkdownSummary();" data-clipboard-target="#markdown"></span>
   </div>
-
+  -->
+  
   <script src="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js"></script>
   <script src="https://cdn.rawgit.com/shouldjs/should.js/cc2f68b3/should.js"></script>
   <script>
-    mocha.setup({ ui: 'bdd', bail: true });
+    mocha.setup({ ui: 'bdd' /*, bail: true */ });
   </script>
 
   <script>
@@ -139,6 +141,7 @@
       document.getElementById("markdown").value = toMarkdown(document.getElementById('mocha').innerHTML, { converters: [pendingConverter, passConverter, failConverter, dropClassesConverter, spanConverter, dropsConverter, noFormatConverter], gfm: true });
     }
   </script>
+  <!-- 
   <script>
     let clipboard = new Clipboard('.copyButton'); /* global Clipboard */
     clipboard.on('success', function(e) {
@@ -150,6 +153,7 @@
       document.getElementById("copyButton").style.display = 'none';
     });
   </script>
+  -->
 </body>
 
 </html>
